@@ -1,45 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ru.avalon.java.ocpjp.labs.actions;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Date;
 
-/**
- *
- * @author JAVA
- */
-public class FileCreateAction implements Action{
-    String file = "Exam808_SampleQuestion.pdf";
-    String path = "D:\\Users\\Bozhenkov\\lab2\\";
-public void create() throws IOException{
-    File f = new File(path, file);
-    if(f.isFile()){
-        System.out.println("File is already existed");
-    }else {
-    boolean created = f.createNewFile();
-    if(created)
-        System.out.println("File created");
+public class FileCreateAction implements Action {
+    private String fileName;
+
+
+    public FileCreateAction(String fileName) {
+        this.fileName = fileName;
     }
-}
+
+
     @Override
     public void run() {
-        try {
-            create();
-        } catch (IOException ex) {
-            Logger.getLogger(FileCreateAction.class.getName()).log(Level.SEVERE, null, ex);
+        File temp = new File(fileName + ".txt");
+        Date date = new Date();
+
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(temp))) {
+            out.write(String.format("Дата создания файла: %tc", date));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        
     }
+
 
     @Override
     public void close() throws Exception {
-       
+        //Nothing
     }
-    
 }

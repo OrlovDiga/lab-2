@@ -1,42 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ru.avalon.java.ocpjp.labs.actions;
 
 import java.io.File;
 
-/**
- *
- * @author JAVA
- */
-public class FileDeleteAction implements Action{
+public class FileDeleteAction implements Action {
+    private File needFile;
 
-     String file = "Exam808_SampleQuestion.pdf";
-    String path = "D:\\Users\\Bozhenkov\\lab2\\";
-    public void delete(){
-        
-        File f = new File(path, file);
-        if(f.isFile()){
-        boolean deleted = f.delete();
-        if(deleted)
-            System.out.println("File deleted");
-        } else {
-            System.out.println("File not found");
-        }
+
+    public FileDeleteAction(String fileName) {
+        this.needFile = new File(fileName);
     }
-    
+
+
     @Override
     public void run() {
-        delete();
-        
-      
+        if (needFile.delete()) {
+            System.out.println("Файл успешно удален.");
+        } else {
+            System.out.println("Файл не был удален.");
+        }
     }
+
 
     @Override
     public void close() throws Exception {
-        
+        //Nothing
     }
-    
 }
+
